@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+t@github.com:szabba/automato.git#!/usr/bin/env python2
 
 import StringIO
 
@@ -206,3 +206,4 @@ if __name__ == "__main__":
             m.set_at((i, j), RGBColor(size, ((i * j) % size, 0, 0)))
     i = PPMImage(m, size)
     i.save_to('image.ppm')
+    print 'aaaaa'
