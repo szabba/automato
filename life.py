@@ -37,7 +37,7 @@ class Grid(list):
 
                 if self[i + di][j + dj] and (di, dj) != (0, 0):
                     count += 1
-        
+
         alive = self[i][j]
         survival = self.survival
         birth = self.birth
@@ -76,7 +76,7 @@ def interactive(grid, count):
         line = raw_input()
     except EOFError:
         return True
-    
+
     return line == 'q'
 
 def n_steps(n):
@@ -168,6 +168,9 @@ if __name__ == '__main__':
 
     while not finished:
         grid.print_grid(opts.repeat_x, opts.repeat_y)
+        # Generate a new grid, and tell me how many living cells it has.
         grid, count = grid.next_grid()
 
+        # Tell me (based on the grid's state whether to stop the program or
+        # not).
         finished = cond(grid, count)
