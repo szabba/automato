@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import random, sys, optparse, time, re
+import ppm
 
 class Grid(list):
     def __init__(self, size=10, chance=(1, 10), birth=[3], survival=[2, 3],
@@ -70,6 +71,9 @@ class Grid(list):
                             output += ' '
                 output += '\n'
         print output
+
+    def return_self(self):
+        return self
 
 def interactive(grid, count):
     try:
@@ -166,8 +170,14 @@ if __name__ == '__main__':
     if opts.die_of_boredom:
         cond = die_of_boredom(cond)
 
+    iteration = 0
     while not finished:
-        grid.print_grid(opts.repeat_x, opts.repeat_y)
-        grid, count = grid.next_grid()
 
+        g = ppm.Grid()
+        g.get_grid(grid)
+        img = ppm.PpmImage(str(iteration))
+        img.make_image(g)
+        iteration+=1
+        
+        grid, count = grid.next_grid()        
         finished = cond(grid, count)
