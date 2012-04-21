@@ -7,7 +7,7 @@ import copy
 class Automata(object):
 
     def __init__(self, grid, neighbourhood, rule):
-        self.__current = grid
+        self.__current = copy.deepcopy(grid)
         self.__next = copy.deepcopy(grid)
         self.__neigbourhood = neighbourhood
         self.__rule = rule
