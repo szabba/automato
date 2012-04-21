@@ -1,0 +1,13 @@
+Usage: life.py [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -z SLEEP, --Zzz=SLEEP
+                        Sleep time in miliseconds.
+  -r RULE, --rule=RULE  Rule variant
+  -I ITER, --iterations=ITER
+                        sleep time in miliseconds.
+  -i, --stdin           Read initial state from stdin.
+  -w, --wrap            Put Life under periodic edge conditions.
+
+Usage image_of_life.py filename_without_extension

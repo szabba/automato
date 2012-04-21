@@ -3,21 +3,41 @@
 
 import sys
 
-from life import read_life, ALIVE, DEAD
+from life import read_life, DEAD, ALIVE
 
 import ppm
 
-
 if __name__ == '__main__':
-    init = read_life()
+    num = 0
 
-    h, w = init.size()
+    colors = {
+            DEAD: ppm.RGBColor(1, (1, 1, 1)),
+            ALIVE: ppm.RGBColor(1, (0, 0, 1))
+    }
 
-    m = ppm.PixelMatrix(w, h)
+    while True:
+        try:
+            if num > 0:
+                line = sys.stdin.readline()
+                if not life in ['\n', '']:
+                    print 'Life grid specs should be interspersed with newlines\
+ and their list should end with an EOF.'
+                    sys.exit(1)
 
-    for x in range(m.get_width()):
-        for y in range(m.get_height()):
-            m.set_at((x, y), ppm.BinaryColor(init.get_at((h - y - 1, w - x - 1))))
+            init = read_life()
 
-    i = ppm.PBMImage(m)
-    i.save_to(sys.argv[1] + '.pbm')
+            h, w = init.size()
+
+            m = ppm.PixelMatrix(w, h)
+
+            for x in range(m.get_width()):
+                for y in range(m.get_height()):
+                    m.set_at((x, y), colors[init.get_at((h - y - 1, w - x -
+                        1))])
+
+            i = ppm.PPMImage(m)
+            i.save_to('%s_%d.ppm' % (sys.argv[1], num))
+            num += 1
+
+        except ValueError:
+            break

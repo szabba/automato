@@ -1,4 +1,4 @@
-t@github.com:szabba/automato.git#!/usr/bin/env python2
+#!/usr/bin/env python2
 
 import StringIO
 
@@ -20,6 +20,7 @@ class Color(object):
             a get_scale method.""")
 
         return self.scale
+
 
 class RGBColor(Color):
     """RGB color."""
@@ -92,6 +93,7 @@ class PixelSource(object):
         raise NotImplementedError("""A PixelSource needs to implement a pixels
         method.""")
 
+
 class PixelMatrix(PixelSource):
     def __init__(self, width, height, default=BinaryColor(False)):
         self.matrix = [[default for i in range(width)] for j in range(height)]
@@ -100,16 +102,17 @@ class PixelMatrix(PixelSource):
 
     def set_at(self, pos, color):
         i, j = pos
-        self.matrix[i][j] = color
+        self.matrix[j][i] = color
 
     def get_at(self, pos):
         i, j = pos
-        return self.matrix[i][j]
+        return self.matrix[j][i]
 
     def pixels(self):
         for row in self.matrix:
             for pixel in row:
                 yield pixel
+
 
 class PAnyMImage(object):
     """Abstract base class for P*MImages."""
@@ -154,6 +157,7 @@ class PAnyMImage(object):
             with open(filelike_or_name, 'w') as f:
                 f.write(self.get_file_content())
 
+
 class PPMImage(PAnyMImage):
     """PPM Image."""
 
@@ -164,6 +168,7 @@ class PPMImage(PAnyMImage):
     def format_pixel(self, pixel):
         return '%d %d %d' % tuple(int(channel * self.get_scale() / pixel.get_scale())
                 for channel in pixel.get_rgb())
+
 
 class PGMImage(PAnyMImage):
     """PGM Image."""
@@ -182,6 +187,7 @@ class PGMImage(PAnyMImage):
 
         return '%d %d %d' % (l, l, l)
 
+
 class PBMImage(PAnyMImage):
     """PBM Image."""
 
@@ -197,6 +203,7 @@ class PBMImage(PAnyMImage):
         l = int((0.3  * r + 0.59 * g + 0.11 * g) * out_scale / in_scale)
 
         return str(l)
+
 
 if __name__ == "__main__":
     size = 1000
