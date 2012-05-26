@@ -20,7 +20,7 @@ def life_rule(birth=[3], survival=[2, 3]):
         if cell is ALIVE and sum(neighbours) in survival:
             return ALIVE
 
-        elif sum(neighbours) in birth:
+        elif cell is DEAD and sum(neighbours) in birth:
             return ALIVE
 
         else:
